@@ -65,7 +65,6 @@ function ConROC:SpecUpdate()
 	end
 end
 ConROC:SpecUpdate()
---Ranks
 --Affliction
 local _Corruption = Aff_Ability.CorruptionRank1;
 local _CurseofAgony = Aff_Ability.CurseofAgonyRank1;
@@ -114,7 +113,8 @@ local _SoulFire = Dest_Ability.SoulFireRank1;
 local _Shadowfury = Dest_Ability.ShadowfuryRank1;
 local _ShadowFlame = Dest_Ability.ShadowFlameRank1;
 
-
+function ConROC:UpdateSpellID()
+--Ranks
 if IsSpellKnown(Aff_Ability.CorruptionRank10) then _Corruption = Aff_Ability.CorruptionRank10;	
 elseif IsSpellKnown(Aff_Ability.CorruptionRank9) then _Corruption = Aff_Ability.CorruptionRank9;	
 elseif IsSpellKnown(Aff_Ability.CorruptionRank8) then _Corruption = Aff_Ability.CorruptionRank8;
@@ -388,6 +388,8 @@ ids.optionMaxIds = {
 	Shadowfury = _Shadowfury,
 	ShadowFlame = _ShadowFlame
 }
+end
+ConROC:UpdateSpellID()
 
 function ConROC:EnableRotationModule()
 	self.Description = 'Warlock';
@@ -401,18 +403,10 @@ function ConROC:EnableRotationModule()
 end
 function ConROC:PLAYER_TALENT_UPDATE()
 	ConROC:SpecUpdate();
-    if ConROCSpellmenuFrame:IsVisible() then
-        ConROCSpellmenuFrame_CloseButton:Hide();
-        ConROCSpellmenuFrame_Title:Hide();
-        ConROCSpellmenuClass:Hide();
-        ConROCSpellmenuFrame_OpenButton:Show();
-        optionsOpened = false;
-        ConROCSpellmenuFrame:SetSize((90) + 14, (15) + 14)
-    else
-        ConROCSpellmenuFrame:SetSize((90) + 14, (15) + 14)
-    end
+    ConROC:closeSpellmenu();
 end
 function ConROC.Warlock.Damage(_, timeShift, currentSpell, gcd)
+ConROC:UpdateSpellID()
 --Character
 	local plvl 												= UnitLevel('player');
 --Racials
