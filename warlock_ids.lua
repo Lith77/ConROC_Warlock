@@ -234,6 +234,9 @@ local optionMaxIds = ...;
 		SoulFireRank1 = 6353,
 		SoulFireRank2 = 17924,
 	}
+	ids.Runes = {
+		Haunt = 403501,
+	}
 --Pet
 	ids.Pet = {
 
